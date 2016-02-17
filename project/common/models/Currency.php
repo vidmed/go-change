@@ -9,14 +9,14 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "currency".
  *
  * @property integer $id
- * @property string $name
+ * @property string  $name
  * @property integer $billing_id
  * @property integer $created_at
  * @property integer $updated_at
  *
  * @property Billing $billing
- * @property Rate[] $rates
- * @property Rate[] $rates0
+ * @property Rate[]  $rates
+ * @property Rate[]  $rates0
  */
 class Currency extends \yii\db\ActiveRecord
 {
@@ -57,8 +57,8 @@ class Currency extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Название валюты',
+            'id'         => 'ID',
+            'name'       => 'Название валюты',
             'billing_id' => 'Платежная система',
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата изменения',
@@ -97,14 +97,18 @@ class Currency extends \yii\db\ActiveRecord
      */
     public static function getAssocCurrencies()
     {
-        $items_array = self::find()
-                           ->asArray()
-                           ->all();
+        return self::find()->select(['name', 'id'])->orderBy('id')->indexBy('id')->column();
+    }
 
-        $items = [];
-        foreach($items_array as $value){
-            $items[$value['id']] = $value['name'];
-        }
-        return $items;
+    /**
+     * @param $billing_id
+     *
+     * @return array|null
+     */
+    public static function getCurrenciesByBilling($billing_id)
+    {
+        return !empty($billing_id) ?
+            self::find()->select(['name', 'id'])->where(['billing_id' => $billing_id])->asArray()->all() :
+            null;
     }
 }

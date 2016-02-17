@@ -8,10 +8,10 @@ use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "billing".
  *
- * @property integer $id
- * @property string $name
- * @property integer $created_at
- * @property integer $updated_at
+ * @property integer    $id
+ * @property string     $name
+ * @property integer    $created_at
+ * @property integer    $updated_at
  *
  * @property Currency[] $currencies
  */
@@ -54,8 +54,8 @@ class Billing extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Название платежной системы',
+            'id'         => 'ID',
+            'name'       => 'Название платежной системы',
             'created_at' => 'Дата создания',
             'updated_at' => 'Дата изменения',
         ];
@@ -77,14 +77,6 @@ class Billing extends \yii\db\ActiveRecord
      */
     public static function getAssocBillings()
     {
-        $items_array = self::find()
-                           ->asArray()
-                           ->all();
-
-        $items = [];
-        foreach($items_array as $value){
-            $items[$value['id']] = $value['name'];
-        }
-        return $items;
+        return self::find()->select(['name', 'id'])->orderBy('id')->indexBy('id')->column();
     }
 }

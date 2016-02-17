@@ -8,13 +8,13 @@ use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "rate".
  *
- * @property integer $id
- * @property integer $from_currency_id
- * @property integer $to_currency_id
- * @property double $from_amount
- * @property double $to_amount
- * @property integer $created_at
- * @property integer $updated_at
+ * @property integer  $id
+ * @property integer  $from_currency_id
+ * @property integer  $to_currency_id
+ * @property double   $from_amount
+ * @property double   $to_amount
+ * @property integer  $created_at
+ * @property integer  $updated_at
  *
  * @property Currency $toCurrency
  * @property Currency $fromCurrency
@@ -57,13 +57,13 @@ class Rate extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id'               => 'ID',
             'from_currency_id' => 'Валюта (из)',
-            'to_currency_id' => 'Валюта (в)',
-            'from_amount' => 'Отдаете',
-            'to_amount' => 'Получаете',
-            'created_at' => 'Дата создания',
-            'updated_at' => 'Дата изменения',
+            'to_currency_id'   => 'Валюта (в)',
+            'from_amount'      => 'Отдаете',
+            'to_amount'        => 'Получаете',
+            'created_at'       => 'Дата создания',
+            'updated_at'       => 'Дата изменения',
         ];
     }
 
@@ -81,5 +81,14 @@ class Rate extends \yii\db\ActiveRecord
     public function getFromCurrency()
     {
         return $this->hasOne(Currency::className(), ['id' => 'from_currency_id']);
+    }
+
+    public static function getRateByCurrencies($from, $to)
+    {
+        return self::find()
+                   ->select(['from_amount', 'to_amount'])
+                   ->where(['from_currency_id' => $from, 'to_currency_id' => $to])
+                   ->asArray()
+                   ->one();
     }
 }

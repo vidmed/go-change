@@ -13,9 +13,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'from_currency_id')->dropDownList($currencies) ?>
+    <?= $form->field($model, 'from_currency_id')->dropDownList($currencies, ['prompt' => 'Выберите валюту']) ?>
 
-    <?= $form->field($model, 'to_currency_id')->dropDownList($currencies) ?>
+    <?= $form->field($model, 'to_currency_id')->dropDownList($currencies, ['prompt' => 'Выберите валюту']) ?>
 
     <?= $form->field($model, 'from_amount')->textInput() ?>
 
