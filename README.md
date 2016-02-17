@@ -6,7 +6,7 @@ Test task for go&amp;change company
 2. Переходим в папку проекта `cd project/`
 3. Устанавливаем зависимости `composer install`
 4. Инициализируем проект`./init`
-5. Устанавливаем параметры подключения в .../project/common/config/main-local.php
+5. Устанавливаем параметры подключения к бд в .../project/common/config/main-local.php
 6. Накатываем миграции `./yii migrate`
 
 Авторизационные данные для входа в админку: admin/admin
