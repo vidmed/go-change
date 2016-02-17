@@ -1,5 +1,5 @@
 # go-change
-Test task for go&amp;change company
+Test task for go&amp;change company (h1)
 
 Установка:
 1. composer global require "fxp/composer-asset-plugin:~1.1.1"
